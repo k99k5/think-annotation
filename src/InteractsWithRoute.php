@@ -5,7 +5,7 @@ namespace think\annotation;
 use Doctrine\Common\Annotations\Reader;
 use ReflectionClass;
 use ReflectionMethod;
-use Symfony\Component\ClassLoader\ClassMapGenerator;
+use Composer\ClassMapGenerator\ClassMapGenerator;
 use think\annotation\route\Group;
 use think\annotation\route\Middleware;
 use think\annotation\route\Model;
@@ -45,6 +45,9 @@ trait InteractsWithRoute
                         $this->scanDir($dir);
                     }
                 }
+				
+	            //加载完成
+	            $this->app->event->trigger('onAnnotationRouteLoaded');
             });
         }
     }
